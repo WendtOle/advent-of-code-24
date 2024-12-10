@@ -1,4 +1,4 @@
-from logic import mislead_the_guard
+from logic import mislead_the_guard, Dir
 from load_input import read_input_from_file
 
 def test_bounces_on_not_previously_seen_obsticle():

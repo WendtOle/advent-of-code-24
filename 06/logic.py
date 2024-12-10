@@ -3,18 +3,20 @@ from enum import Enum
 from load_input import read_input_from_file
 
 
-def walk_guard(puzzle):
+def walk_guard(puzzle, obsticle):
     width = get_width(puzzle)
     cur_pos = get_guard_position(puzzle)
     cur_dir = Dir.UP
-    positions = [cur_pos]
-    while cur_pos in positions:
+    steps = 1
+    while True:
+        if steps > 25000:
+            return True
         try: 
             next_pos = next_position(cur_pos, width, cur_dir)
         except Exception:
-            return positions
+            return False
         next_object = puzzle[next_pos]
-        if next_object == "#":
+        if next_object == "#" or next_pos == obsticle:
             next_dir_index = order.index(cur_dir) + 1
             if next_dir_index >= 4:
                 next_dir_index = 0
@@ -23,21 +25,26 @@ def walk_guard(puzzle):
             try: 
                 next_pos = next_position(cur_pos, width, cur_dir)
             except Exception:
-                return positions
+                return False
         
         cur_pos = next_pos
-        positions.append(cur_pos)
+        steps += 1
 
 # next step would be to track exactly where it goes in the minimal example
 # maybe i can observe some thing what goes wrong
 # and the output of 6 is only by accident 
 
 def mislead_the_guard(puzzle):
-    cur_pos = get_guard_position(puzzle)
-    cur_dir = Dir.UP
+    width = int(get_width(puzzle))
 
-    output = recursive(puzzle, cur_pos, cur_dir)
-    print(output)
+    counter = 0
+    for pos in range(width ** 2):
+        if walk_guard(puzzle, pos):
+            counter += 1
+            print(pos, counter)
+
+    return counter
+
 
     """
     for path in output:
