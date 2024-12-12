@@ -3,12 +3,16 @@ def get_sum(input: str):
     joined = "".join(map(lambda line: line.strip(), splitted))
     as_int = list(map(lambda char: int(char), joined))
     width = len(input.strip().split("\n")[0].strip())
-    count = 0
+    unique = 0
+    trails_amount = 0
     for index, char in enumerate(as_int):
         if char == 0:
-            ends = set(recursive(0, index, as_int, width))
-            count += len(ends) 
-    return count
+            ends = recursive(0, index, as_int, width)
+            unique_ends = len(set(ends))
+            trails = len(ends)
+            unique += unique_ends 
+            trails_amount += trails
+    return [unique, trails_amount]
 
 def recursive(current_level, current_position, puzzle, width):
     next_positions = get_surrounded_next_level(current_level, current_position, puzzle, width)

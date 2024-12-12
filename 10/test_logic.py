@@ -7,7 +7,7 @@ def test_first_example():
     8765
     9876
     """
-    assert get_sum(input) == 1
+    assert get_sum(input) == [1,16]
 
 def test_second_example():
     input = """
@@ -20,7 +20,7 @@ def test_second_example():
     01329801
     10456732
     """
-    assert get_sum(input) == 36
+    assert get_sum(input) == [36,81]
 
 def test_position():
     assert get_surrounded_positions(4,3) == [3,5,1,7]
