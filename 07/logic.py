@@ -14,7 +14,7 @@ def get_total_calibration_result(file_name):
     return sum 
 
 def test_get_total_calibration_result():
-    assert get_total_calibration_result("./example.txt") == 3749
+    assert get_total_calibration_result("./example.txt") == 11387
 
 def is_equation_solvable(result, items):
     return result in get_results(items)
@@ -27,6 +27,7 @@ def get_results(items):
         for result in results:
             new_result_set.add(result + item)
             new_result_set.add(result * item)
+            new_result_set.add(result * (10 ** len(str(item))) + item)
         results = new_result_set
     return results
 
@@ -34,6 +35,11 @@ def test_is_equation_solvable():
     assert is_equation_solvable(190, [10,19]) == True
     assert is_equation_solvable(161011, [16,10,13]) == False
     assert is_equation_solvable(3267, [81,40,27]) == True
+    assert is_equation_solvable(156, [15,6]) == True
+    assert is_equation_solvable(7290, [6,8,6,15]) == True
+    assert is_equation_solvable(192, [17,8,14]) == True
+
+
 
 if __name__ == "__main__":
     print(get_total_calibration_result("./given.txt"))   
