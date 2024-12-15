@@ -4,6 +4,8 @@ import enum
 class Sign(str, enum.Enum):
     WALL = "#",
     BOX = "O",
+    BOX_LEFT = "[",
+    BOX_RIGHT = "]",
     ROBOT = "@",
     EMPTY = "."
 
@@ -14,7 +16,7 @@ def get_gps_sum(input, width, index=0):
     return get_gps_sum(input, width, index + 1) + current_gps
 
 def get_current_gps(input, width, index):
-    if input[index] == Sign.BOX:
+    if input[index] == Sign.BOX or input[index] == Sign.BOX_LEFT:
         return get_gps(index, width)
     return 0
 
